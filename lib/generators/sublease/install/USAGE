@@ -1,0 +1,5 @@
+Description:
+  Creates an initializer for sublease.
+
+Example:
+  `rails generate sublease:install`
