@@ -3,9 +3,9 @@ module Sublease
     extend ActiveSupport::Concern
 
     included do
-      before_filter :sublease_switch_on_domain, if: Sublease.switch_on_domain == true
-      before_filter :sublease_switch_on_subdomain, if: Sublease.switch_on_subdomain == true
-      before_filter :sublease_switch_on_domain_and_subdomain, if: Sublease.switch_on_subdomain_and_domain == true
+      before_filter :sublease_switch_on_domain, if: :sublease_switch_on_domain?
+      before_filter :sublease_switch_on_subdomain, if: :sublease_switch_on_subdomain?
+      before_filter :sublease_switch_on_subdomain_and_domain, if: :sublease_switch_on_subdomain_and_domain?
     end
 
     private
@@ -38,6 +38,10 @@ module Sublease
       sublease_set_current_tenant(tenant)
     end
 
+    def sublease_switch_on_domain?
+      (Sublease.switch_on_domain == true)
+    end
+
     def sublease_switch_on_subdomain
       return if Sublease.current_tenant_subdomain == request.subdomain
       model = sublease_model
@@ -48,6 +52,10 @@ module Sublease
       sublease_set_current_tenant(tenant)
     end
 
+    def sublease_switch_on_subdomain?
+      (Sublease.switch_on_subdomain == true)
+    end
+
     def sublease_switch_on_subdomain_and_domain
       return if ((Sublease.current_tenant_subdomain == request.subdomain) && (Sublease.current_tenant_domain == request.domain))
       model = sublease_model
@@ -56,6 +64,10 @@ module Sublease
         sublease_error_tenant_not_found(I18n.t('sublease.errors.subdomain_and_domain_not_found', subdomain: request.subdomain, domain: request.domain))
       end
       sublease_set_current_tenant(tenant)
+    end
+
+    def sublease_switch_on_subdomain_and_domain?
+      (Sublease.switch_on_subdomain_and_domain == true)
     end
   end
 end

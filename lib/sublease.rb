@@ -1,11 +1,12 @@
 require 'sublease/engine'
 require 'sublease/errors'
+require 'sublease/tenant_switcher'
 require 'request_store'
 
 module Sublease
 
   class << self
-    attr_accessor :switch_on_domain, :switch_on_subdomain, :switch_on_subdomain_and_domain
+    attr_accessor :tenant_model, :switch_on_domain, :switch_on_subdomain, :switch_on_subdomain_and_domain
 
     # configure sublease with available options
     def configure
@@ -73,15 +74,11 @@ module Sublease
       RequestStore.store[:sublease_default_tenant_subdomain]
     end
 
-    def tenant_model
-      RequestStore.store[:sublease_tenant_model]
-    end
-
     def tenant_model=(model)
       if model.class == String
-        RequestStore.store[:sublease_tenant_model] = model.capitalize.constantize
+        @tenant_model = model.capitalize.constantize
       else
-        RequestStore.store[:sublease_tenant_model] = model
+        @tenant_model = model
       end
     end
 

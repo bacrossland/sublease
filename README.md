@@ -1,28 +1,30 @@
 # Sublease
 
-Sublease is a tenanting engine for Rails 4.1 and greater applications using a shared database or schema.
+Sublease is a tenanting engine for Rails 4.1 and greater applications using a shared database or schema. It's a Rails Engine 
+designed to be lightweight, simple to implement, and easy to use. Sublease works with existing as well as new applications.
 
 ## Installation
 
-On the model that you want tenanted, add the fields domain and subdomain through a migration. Both of these fields should be strings.
+1. On the model that you want tenanted, add the fields 'domain' and 'subdomain' through a migration. Both of these fields should be strings.
 
-Add this line to your application's Gemfile:
+1. Add this line to your application's Gemfile:
 
-```ruby
-gem 'sublease'
-```
+        gem 'sublease'
+        
+    And then execute:
+        
+        $ bundle install
+        
+    Or install it yourself as:
+        
+        $ gem install sublease
 
-And then execute:
+1. Finally, install the Sublease configuration file. This will add config/initializers/sublease.rb to you application.
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install sublease
-
-Finally, install the Sublease configuration file. This will add config/initializers/sublease.rb to you application.
 
     $ rails generate sublease:install
+
+
 
 ## Usage
 
@@ -73,7 +75,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sublease. All pull requests should be against the 
+Bug reports and pull requests are welcome on GitHub at https://github.com/bacrossland/sublease. All pull requests should be against the 
 development branch. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License

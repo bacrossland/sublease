@@ -1,3 +1,7 @@
-0.1.0.beta
+0.1.0.rc2
 -----
-* beta release
+* Fixed issues with Sublease::TenantSwitcher not loading.
+
+0.1.0.rc1
+-----
+* release candidate 1

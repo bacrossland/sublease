@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount Sublease::Engine => "/sublease"
+  root :to => "lodgers#index"
 end

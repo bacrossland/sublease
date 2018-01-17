@@ -1,0 +1,8 @@
+Current Tenant: <%= @current_tenant_name %>
+<br/>
+Default Tenant: <%= @default_tenant_name %>
+<br/>
+Lodgers for Current Tenant:<br/>
+<% @lodgers.each do |l| %>
+<%= l.name %><br/>
+<% end %>
