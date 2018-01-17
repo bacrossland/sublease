@@ -4,6 +4,8 @@ Sublease is a tenanting engine for Rails 4.1 and greater applications using a sh
 
 ## Installation
 
+On the model that you want tenanted, add the fields domain and subdomain through a migration. Both of these fields should be strings.
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -18,18 +20,56 @@ Or install it yourself as:
 
     $ gem install sublease
 
+Finally, install the Sublease configuration file. This will add config/initializers/sublease.rb to you application.
+
+    $ rails generate sublease:install
+
 ## Usage
 
-Simple version. Data is immutable unless attrib for overriding is set.
+### Models
+
+Sublease works by create controlled has_many and belongs_to relationships between your tenant and any other model. The has_many_subleases 
+model should inherit from Sublease::Tenant and the belongs_to_subleases model should inherit from Sublease::Lodger.
+ 
+    class Tenant < Sublease::Tenant
+      has_many_subleases(:lodgers)
+    end
+    
+    class Lodger < Sublease::Lodger
+      belongs_to_sublease(:tenant)
+    end
+
+The relationships work just like normal has_many and belongs_to ActiveRecord Relationships even taking the same options. 
+The difference is that the relationship is immutable and all dependencies on the relationship are overridden to call 
+the destroy method. This is to ensure that all callback are called on the model in the event of a delete or destroy method call.
+
+### Controllers
+
+Sublease can change your tenant on the fly based on a requests subdomain, domain, or both. This switching is handled in 
+any controller you want by including Sublease::TenantSwitcher. In the example below, we include it into ApplicationController 
+which means that every controller in the application will check the request to make sure the correct tenant is set. 
+You might not want every request to a controller checking to set the tenant so make sure you only add it to the controllers
+that need it.
+
+    class ApplicationController < ActionController::Base
+      # Prevent CSRF attacks by raising an exception.
+      # For APIs, you may want to use :null_session instead.
+      protect_from_forgery with: :exception
       
-Tenant Model has_many_subleases(:lodger)
-Lodger Model sublease_belongs_to (:tenant)
+      include Sublease::TenantSwitcher
+    end
+
+## Configuration
+
+Sublease can be configured to set a default subdomain and/or domain. It can also be configured to determine by which method 
+to switch the tenant: subdomain, domain, or subdomain and domain. See config/initializers/sublease.rb for all options.
+
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. 
+After checking out the repo, run `bundle` to install dependencies. Then, run `rake test` to run the tests. 
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 
