@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 ruby '>= 2.3.1'
+gem 'rails', '~> 5.1'
+gem 'rdoc'
 
 # Declare your gem's dependencies in sublease.gemspec
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -12,12 +14,14 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
-if RUBY_ENGINE == 'jruby'
+if platforms :jruby
   gem 'pry', group: [:development, :test]
-  gem 'activerecord-jdbcsqlite3-adapter', group: [:development, :test]
+  gem 'activerecord-jdbc-adapter'
+  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'jruby-openssl'
 else
   gem 'byebug', group: [:development, :test]
+  gem 'sqlite3'
 end
 
 gem 'shoulda', group: [:development, :test]
