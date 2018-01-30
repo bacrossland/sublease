@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.3.1'
 
-  s.add_dependency 'rails', '~> 4.1', '< 6.0'
+  s.add_dependency 'rails', '>= 4.1', '< 6.0'
 
   s.add_runtime_dependency('request_store', '>= 1.4.0')
 
