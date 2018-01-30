@@ -14,7 +14,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-if platforms :jruby
+if RUBY_ENGINE == 'jruby'
   gem 'pry', group: [:development, :test]
   gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcsqlite3-adapter'
