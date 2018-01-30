@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+site1:
+  name: site1
+  subdomain: www
+  domain: example.com
+site2:
+  name: site2
+  subdomain: staging
+  domain: example.com
+site3:
+  name: site3
+  subdomain: junk
+  domain: yard.com

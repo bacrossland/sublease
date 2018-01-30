@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sublease/engine'
 require 'sublease/errors'
 require 'sublease/tenant_switcher'
@@ -6,7 +8,7 @@ require 'request_store'
 module Sublease
 
   class << self
-    attr_accessor :tenant_model, :switch_on_domain, :switch_on_subdomain, :switch_on_subdomain_and_domain
+    attr_reader :tenant_model, :switch_on_domain, :switch_on_subdomain, :switch_on_subdomain_and_domain
 
     # configure sublease with available options
     def configure

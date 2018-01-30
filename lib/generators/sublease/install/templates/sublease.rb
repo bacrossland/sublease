@@ -16,8 +16,8 @@ Sublease.configure do |config|
   # config.switch_on_subdomain_and_domain = false
 
   # The default tenant subdomain
-  # config.default_tenant_subdomain = www
+  # config.default_tenant_subdomain = 'www'
 
   # The default tenant domain
-  # config.default_tenant_domain = example.com
+  # config.default_tenant_domain = 'example.com'
 end

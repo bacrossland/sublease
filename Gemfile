@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '>= 2.3.1'
+
 # Declare your gem's dependencies in sublease.gemspec
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
@@ -11,4 +13,10 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-# gem 'byebug', group: [:development, :test]
+if RUBY_ENGINE == 'jruby'
+  gem 'pry', group: [:development, :test]
+else
+  gem 'byebug', group: [:development, :test]
+end
+
+gem 'shoulda', group: [:development, :test]

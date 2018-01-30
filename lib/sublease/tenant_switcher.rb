@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Sublease
   module TenantSwitcher
     extend ActiveSupport::Concern
 
     included do
-      before_filter :sublease_switch_on_domain, if: :sublease_switch_on_domain?
-      before_filter :sublease_switch_on_subdomain, if: :sublease_switch_on_subdomain?
-      before_filter :sublease_switch_on_subdomain_and_domain, if: :sublease_switch_on_subdomain_and_domain?
+      before_action :sublease_switch_on_domain, if: :sublease_switch_on_domain?
+      before_action :sublease_switch_on_subdomain, if: :sublease_switch_on_subdomain?
+      before_action :sublease_switch_on_subdomain_and_domain, if: :sublease_switch_on_subdomain_and_domain?
     end
 
     private

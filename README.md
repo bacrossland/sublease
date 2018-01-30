@@ -1,7 +1,18 @@
 # Sublease
 
-Sublease is a tenanting engine for Rails 4.1 and greater applications using a shared database or schema. It's a Rails Engine 
+Sublease is a tenanting engine for Rails 4.2 and greater applications using a shared database or schema. It's a Rails Engine 
 designed to be lightweight, simple to implement, and easy to use. Sublease works with existing as well as new applications.
+
+## Ruby Versions
+
+The following Ruby MRI and jRuby versions or greater are supported. Sublease was not built for or tested against other versions.
+
+Ruby >= 2.3.1
+jRuby >= 9.1.8.0
+
+## Rails Versions
+
+Sublease is built and tested to run using Rails version 4.2 or greater. While Sublease will run on Rails 4.1.16, it is not officially supported.
 
 ## Installation
 
@@ -22,7 +33,7 @@ designed to be lightweight, simple to implement, and easy to use. Sublease works
 1. Finally, install the Sublease configuration file. This will add config/initializers/sublease.rb to you application.
 
 
-    $ rails generate sublease:install
+         $ rails generate sublease:install
 
 
 
@@ -31,19 +42,44 @@ designed to be lightweight, simple to implement, and easy to use. Sublease works
 ### Models
 
 Sublease works by create controlled has_many and belongs_to relationships between your tenant and any other model. The has_many_subleases 
-model should inherit from Sublease::Tenant and the belongs_to_subleases model should inherit from Sublease::Lodger.
+model should inherit from Sublease::Tenant and the belongs_to_subleases model should inherit from Sublease::Lodger. For 
+instance, if your application allowed for accounts to be created that would be shared by many users, your models would 
+look like this:
  
-    class Tenant < Sublease::Tenant
-      has_many_subleases(:lodgers)
+    class Account < Sublease::Tenant
+      has_many_subleases(:users)
     end
     
-    class Lodger < Sublease::Lodger
-      belongs_to_sublease(:tenant)
+    class User < Sublease::Lodger
+      belongs_to_sublease(:account)
     end
 
 The relationships work just like normal has_many and belongs_to ActiveRecord Relationships even taking the same options. 
 The difference is that the relationship is immutable and all dependencies on the relationship are overridden to call 
 the destroy method. This is to ensure that all callback are called on the model in the event of a delete or destroy method call.
+
+#### Scoping For Unique Records
+
+When adding unique record scope on your model, just do it as you would normally in ActiveRecord. Sublease is designed to 
+be simple and not replace things that Rails and ActiveRecord can do just fine. Using the example above, if you wanted to 
+scope a user's email to be unique per account, you might add a validator like so:
+
+    class User < Sublease::Lodger
+      belongs_to_sublease(:account)
+      
+      validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :account_id }
+    end
+
+#### Moving Tenants
+
+In most cases, once a record is tenanted it stays with it's tenant. Sublease prevents switching tenants by default. 
+However, sometimes it is necessary to move a record from one tenant to another. To do this set the allow_sublease_change 
+property to true. Using the example above, we'll move user 1 from account 1 to account 2.
+
+    $ user = User.find 1
+    $ user.allow_sublease_change = true
+    $ user.account_id = 2
+    $ user.save
 
 ### Controllers
 
@@ -54,12 +90,13 @@ You might not want every request to a controller checking to set the tenant so m
 that need it.
 
     class ApplicationController < ActionController::Base
-      # Prevent CSRF attacks by raising an exception.
-      # For APIs, you may want to use :null_session instead.
-      protect_from_forgery with: :exception
       
       include Sublease::TenantSwitcher
     end
+
+The current tenant can be accessed from `Sublease.current_tenant`. Use this to set the tenant for new records or even to 
+show records belonging to that tenant.
+
 
 ## Configuration
 

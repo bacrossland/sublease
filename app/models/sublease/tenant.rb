@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sublease
   class Tenant < ActiveRecord::Base
     self.abstract_class = true
