@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bacrossland/sublease.svg?branch=master)](https://travis-ci.org/bacrossland/sublease)
+
 # Sublease
 
 Sublease is a tenanting engine for Rails 4.2 and greater applications using a shared database or schema. It's a Rails Engine 
