@@ -15,6 +15,7 @@ gemspec
 # To use a debugger
 if RUBY_ENGINE == 'jruby'
   gem 'pry', group: [:development, :test]
+  gem 'activerecord-jdbcsqlite3-adapter', group: [:development, :test]
 else
   gem 'byebug', group: [:development, :test]
 end
