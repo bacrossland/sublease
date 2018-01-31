@@ -3,6 +3,9 @@
 require 'test_helper'
 
 class Sublease::Test < ActiveSupport::TestCase
+  setup do
+    Sublease.tenant_model = Tenant
+  end
 
   context 'configure block' do
     should 'yield self' do
@@ -29,6 +32,7 @@ class Sublease::Test < ActiveSupport::TestCase
     end
 
     should 'set default_tenant if found' do
+      Sublease.default_tenant_subdomain = nil
       Sublease.default_tenant_domain = 'example.com'
       assert_equal Tenant, Sublease.default_tenant.class
       assert_equal 'example.com', Sublease.default_tenant.domain
@@ -43,6 +47,7 @@ class Sublease::Test < ActiveSupport::TestCase
     end
 
     should 'set default_tenant if found' do
+      Sublease.default_tenant_domain = nil
       Sublease.default_tenant_subdomain = 'www'
       assert_equal Tenant, Sublease.default_tenant.class
       assert_equal 'www', Sublease.default_tenant.subdomain
@@ -124,7 +129,5 @@ class Sublease::Test < ActiveSupport::TestCase
         Sublease.switch_on_subdomain_and_domain = true
       end
     end
-
   end
-
 end

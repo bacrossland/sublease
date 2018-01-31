@@ -51,10 +51,12 @@ module Sublease
     def default_tenant_domain=(domain)
       tenant_model?
       RequestStore.store[:sublease_default_tenant_domain] = domain
-      if default_tenant_subdomain.nil?
-        self.default_tenant = tenant_model.where(domain: domain).first
-      else
-        self.default_tenant = tenant_model.where(domain: domain, subdomain: default_tenant_subdomain).first
+      unless domain.nil?
+        if default_tenant_subdomain.nil?
+          self.default_tenant = tenant_model.where(domain: domain).first
+        else
+          self.default_tenant = tenant_model.where(domain: domain, subdomain: default_tenant_subdomain).first
+        end
       end
     end
 
@@ -65,10 +67,12 @@ module Sublease
     def default_tenant_subdomain=(subdomain)
       tenant_model?
       RequestStore.store[:sublease_default_tenant_subdomain] = subdomain
-      if default_tenant_domain.nil?
-        self.default_tenant = tenant_model.where(subdomain: subdomain).first
-      else
-        self.default_tenant = tenant_model.where(domain: default_tenant_domain, subdomain: subdomain).first
+      unless subdomain.nil?
+        if default_tenant_domain.nil?
+          self.default_tenant = tenant_model.where(subdomain: subdomain).first
+        else
+          self.default_tenant = tenant_model.where(domain: default_tenant_domain, subdomain: subdomain).first
+        end
       end
     end
 

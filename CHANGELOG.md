@@ -1,3 +1,7 @@
+0.1.0.rc4
+-----
+* Fixed default_tenant_domain and default_tenant_subdomain to ignore nil values.
+
 0.1.0.rc3
 -----
 * Refactor error messages and validations in Sublease::Lodger.
