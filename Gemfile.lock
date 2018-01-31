@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sublease (0.1.0.rc4)
+    sublease (0.1.0)
       rails (>= 4.1, < 6.0)
       request_store (>= 1.4.0)
 
