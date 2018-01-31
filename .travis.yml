@@ -11,9 +11,55 @@ rvm:
   - ruby-head
   - jruby
 
+gemfile:
+  - Gemfile
+  - gemfiles/Gemfile.rails-5.0-stable
+  - gemfiles/Gemfile.rails-4.2-stable
+  - gemfiles/Gemfile.rails-4.1-stable
+  - gemfiles/Gemfile.jruby.rails-5.0-stable
+  - gemfiles/Gemfile.jruby.rails-4.2-stable
+  - gemfiles/Gemfile.jruby.rails-4.1-stable
+
 matrix:
   allow_failures:
     - rvm: ruby-head
+  exclude:
+    - rvm: 2.5.0
+      gemfile: gemfiles/Gemfile.rails-4.1-stable
+    - rvm: 2.5.0
+      gemfile: gemfiles/Gemfile.jruby.rails-4.1-stable
+    - rvm: 2.5.0
+      gemfile: gemfiles/Gemfile.jruby.rails-4.2-stable
+    - rvm: 2.5.0
+      gemfile: gemfiles/Gemfile.jruby.rails-5.0-stable
+    - rvm: 2.4.3
+      gemfile: gemfiles/Gemfile.rails-4.1-stable
+    - rvm: 2.4.3
+      gemfile: gemfiles/Gemfile.jruby.rails-4.1-stable
+    - rvm: 2.4.3
+      gemfile: gemfiles/Gemfile.jruby.rails-4.2-stable
+    - rvm: 2.4.3
+      gemfile: gemfiles/Gemfile.jruby.rails-5.0-stable
+    - rvm: 2.3.1
+      gemfile: gemfiles/Gemfile.jruby.rails-4.1-stable
+    - rvm: 2.3.1
+      gemfile: gemfiles/Gemfile.jruby.rails-4.2-stable
+    - rvm: 2.3.1
+      gemfile: gemfiles/Gemfile.jruby.rails-5.0-stable
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.rails-4.1-stable
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.jruby.rails-4.1-stable
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.jruby.rails-4.2-stable
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.jruby.rails-5.0-stable
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-4.1-stable
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-4.2-stable
+    - rvm: jruby
+      gemfile: gemfiles/Gemfile.rails-5.0-stable
 
 cache: bundler
 
