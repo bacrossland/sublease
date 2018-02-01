@@ -13,7 +13,7 @@ class NavigationTest < ActionDispatch::IntegrationTest
       Sublease.switch_on_domain = true
       get '/'
       assert_response :success
-      assert_select '#current_tenant_name','site1'
+      assert_select '#current_tenant_name',Sublease.current_tenant.name
     end
   end
 
