@@ -20,8 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '>= 4.1', '< 6.0'
 
-  s.add_runtime_dependency('request_store', '>= 1.4.0')
-
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'shoulda'
 
