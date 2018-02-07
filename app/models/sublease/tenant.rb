@@ -4,6 +4,8 @@ module Sublease
   class Tenant < ActiveRecord::Base
     self.abstract_class = true
 
+    validates :subdomain, uniqueness: { scope: :domain }
+
     class << self
 
       # Overrides standard ActiveRecord::Relation delete to call destroy instead ensuring all callbacks are fired.
