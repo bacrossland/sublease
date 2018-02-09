@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sublease (0.2.0)
+    sublease (0.2.1)
       rails (>= 4.1, < 6.0)
 
 GEM

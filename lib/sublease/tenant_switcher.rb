@@ -31,7 +31,9 @@ module Sublease
     end
 
     def sublease_switch_on_domain
-      return if Sublease.current_tenant_domain == request.domain
+      unless Rails.env.test?
+        return if Sublease.current_tenant_domain == request.domain
+      end
       model = sublease_model
       tenant = model.where(domain: request.domain).first
       if tenant.nil?
@@ -45,7 +47,9 @@ module Sublease
     end
 
     def sublease_switch_on_subdomain
-      return if Sublease.current_tenant_subdomain == request.subdomain
+      unless Rails.env.test?
+        return if Sublease.current_tenant_subdomain == request.subdomain
+      end
       model = sublease_model
       tenant = model.where(subdomain: request.subdomain).first
       if tenant.nil?
@@ -59,7 +63,9 @@ module Sublease
     end
 
     def sublease_switch_on_subdomain_and_domain
-      return if ((Sublease.current_tenant_subdomain == request.subdomain) && (Sublease.current_tenant_domain == request.domain))
+      unless Rails.env.test?
+        return if ((Sublease.current_tenant_subdomain == request.subdomain) && (Sublease.current_tenant_domain == request.domain))
+      end
       model = sublease_model
       tenant = model.where(domain: request.domain, subdomain: request.subdomain).first
       if tenant.nil?
