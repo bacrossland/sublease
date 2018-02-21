@@ -13,7 +13,7 @@ module Sublease
     private
 
     def sublease_error_tenant_not_found(message)
-      raise Sublease::TenantNotFound, message
+      Rails.logger.error "ERROR -- : Sublease::TenantNotFound - #{message}"
     end
 
     def sublease_model

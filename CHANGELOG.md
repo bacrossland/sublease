@@ -1,3 +1,7 @@
+0.2.2
+-----
+* Logs a tenant not found error when switching tenants instead of raising an error.
+
 0.2.1
 -----
 * For speed, Sublease will not query the database for a tenant if the Sublease.current_tenant
