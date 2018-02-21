@@ -1,3 +1,7 @@
+0.2.3
+-----
+* Exits switching method if tenant is nil.
+
 0.2.2
 -----
 * Logs a tenant not found error when switching tenants instead of raising an error.

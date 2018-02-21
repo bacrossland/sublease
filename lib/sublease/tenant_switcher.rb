@@ -13,7 +13,7 @@ module Sublease
     private
 
     def sublease_error_tenant_not_found(message)
-      Rails.logger.error "ERROR -- : Sublease::TenantNotFound - #{message}"
+      Rails.logger.error "Sublease::TenantNotFound - #{message}"
     end
 
     def sublease_model
@@ -38,6 +38,7 @@ module Sublease
       tenant = model.where(domain: request.domain).first
       if tenant.nil?
         sublease_error_tenant_not_found(I18n.t('sublease.errors.domain_not_found', domain: request.domain))
+        return
       end
       sublease_set_current_tenant(tenant)
     end
@@ -54,6 +55,7 @@ module Sublease
       tenant = model.where(subdomain: request.subdomain).first
       if tenant.nil?
         sublease_error_tenant_not_found(I18n.t('sublease.errors.subdomain_not_found', subdomain: request.subdomain))
+        return
       end
       sublease_set_current_tenant(tenant)
     end
@@ -70,6 +72,7 @@ module Sublease
       tenant = model.where(domain: request.domain, subdomain: request.subdomain).first
       if tenant.nil?
         sublease_error_tenant_not_found(I18n.t('sublease.errors.subdomain_and_domain_not_found', subdomain: request.subdomain, domain: request.domain))
+        return
       end
       sublease_set_current_tenant(tenant)
     end
