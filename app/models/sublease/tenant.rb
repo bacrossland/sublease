@@ -5,6 +5,7 @@ module Sublease
     self.abstract_class = true
 
     validates :subdomain, uniqueness: { scope: :domain }
+    after_save :reload_current_and_default_tenant
 
     class << self
 
@@ -25,6 +26,18 @@ module Sublease
     # Overrides standard object delete to call destroy instead ensuring all callbacks are fired.
     def delete
       destroy
+    end
+
+    private
+
+    def reload_current_and_default_tenant
+      unless Sublease.default_tenant.nil?
+        Sublease.default_tenant.reload
+      end
+
+      unless Sublease.current_tenant.nil?
+        Sublease.current_tenant.reload
+      end
     end
 
   end

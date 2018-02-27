@@ -1,3 +1,7 @@
+0.3.0
+-----
+* Reloads current and default tenant on save of new tenant information.
+
 0.2.3
 -----
 * Exits switching method if tenant is nil.
